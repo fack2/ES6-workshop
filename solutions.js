@@ -1,104 +1,59 @@
 
-const assertEquals = (expected, actual, description) => {
-  try {
-    deepEquals(expected, actual);
-  }
-  catch (error) {
-    throw new Error((description ? description + ': ' : '') + error.message);
-  }
+const plusSeven = (num) => {
+return num + 7
 }
 
 
-const deepEquals = (a, b, trace='') => {
+const deepEquals1 = (a, b, description='') => {
 
-  let typeA = getType(a);
-  let typeB = getType(b);
-
-  if (typeA === 'undefined' && typeB !== 'undefined')
-
-    throw new Error(`Found ${trace}, none expected`);
-
-  if (typeB === 'undefined' && typeA !== 'undefined')
-    throw new Error(`Expected ${trace}, but was not found`);
-
-  if (typeA !== typeB)
-    throw new Error(`Expected type ${getType(a)}, but found type ${getType(b)}`);
-
-  if (typeof a !== 'object' && a !== b)
-    throw new Error(`Expected ${trace ? trace + ' ' : ''}${JSON.stringify(a)}, but found ${JSON.stringify(b)}`);
-
-  if (typeA === 'array' && a.length !== b.length)
-    throw new Error(`Expected array length ${a.length}, but found ${b.length}`);
-
-  if (typeof a === 'object')
-    new Set([...Object.keys(a), ...Object.keys(b)]).forEach(
-      key => deepEquals(a[key], b[key], trace + buildTrace(a, key))
-    );
+  if (a === b){
+      const message = `test passed,${a} deeply equals${b} ${description}`
+      return message
+  } else {
+      return `test failed ${description}`
+  }
+    
 }
-
-const getType = x => {
-  if (x === null)
-    return 'null';
-  if (x instanceof Array)
-    return 'array';
-  return typeof x;
-}
-
-const buildTrace = (element, key) => element instanceof Array ? `[${key}]` : `.${key}`;
+deepEquals1(plusSeven(6), 13) // output should be 'test passed, 13 deeply equals 13'
+deepEquals1(plusSeven(6), 13, ': 6 plus 7 should equal 13') // output should be 'test passed, 13 deeply equals 13: 6 plus 7 should equal 13'
 
 
 
-class Test {
+const deepEquals2= (obj)=>{
 
-  constructor({expected, actual, description}) {
-    this.expected = expected;
-    this.actual = actual;
-    this.description = description;
+
+  const {expected, actual, description=''} = obj
+
+
+    
+  if (expected === actual){
+      const message = `test passed,${ expected} deeply equals ${ actual } ${ description}`
+      return message
+  } else {
+      return `test failed ${ description}`
   }
 
-  run() {
-    assertEquals(this.expected, this.actual, this.description);
-  }
 }
 
-const tests = [
-  {
-    expected: {a: 1},
-    actual: {a: 1, b: 2},
-    description: 'Comparing an object with an additional key',
-  },
-  {
-    expected: {a: 1},
-    actual: {},
-    description: 'Comparing an object missing a key',
-  },
-  {
-    expected: NaN,
-    actual: null,
-    description: 'Comparing different types',
-  },
-  {
-    expected: {a: 5},
-    actual: {a: 6},
-    description: 'Comparing objects with different values',
-  },
-  {
-    expected: [1, 2, 3],
-    actual: [1, 2, 3, 4],
-    description: 'Comparing arrays of different lengths',
-  },
-  {
-    expected: {a: {b: 5}},
-    actual: {a: {b: 6}},
-    description: 'Comparing nested objects',
-  },
-]
+const obj = {expected: 10, actual: 10}
+const objWithDesc = {expected: 15, actual: 15, description: ': 5 plus 10 should equal 15'}
+deepEquals2(objWithDesc)
+//should return 'test passed, 15 deeply equals 15: 5 plus 10 should equal 15'
+deepEquals2(obj) 
+//should return 'test passed, 10 deeply equals 10'
 
-tests.map(test => new Test(test))
-     .forEach(test => {
-       try {
-         test.run();
-       } catch (error) {
-         console.log(error.message);
-       }
-     });
+
+
+
+
+const uniqueVals= (arr1, arr2)=>{
+  const joinedArrs = [...arr1, ...arr2]
+  const uniq = new Set(joinedArrs)
+  uniq.forEach(a=> console.log(a))
+}
+const arr1 = [1, 5, 6]
+const arr2 = [3, 5, 6]
+
+uniqueVals(arr1, arr2) // should console.log 1 5 6 3
+
+
