@@ -1,13 +1,6 @@
+# ES6 workshop
 
-# Morning challenge: Convert ES5 code to ES6
-
-## Setup
-
-1. Clone this repository to your computer.
-
-2. do what the comments ask, converting ES5 to ES6
-
-
+clone this workshop, then work through the quesitons at the bottom, converting the code into es6. make sure the functions continue to output the expected output!
 
 ### look out for: 
 
@@ -28,9 +21,12 @@
 
 - [the Set data structure](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Set)
 
-- [class definitions](http://es6-features.org/#ClassDefinition)
 
-
-### extra
-
-If you have time remaining, read up on a piece of software called [Babel](https://babeljs.io/) – you'll be hearing a lot more about it in future.
+1. Replace all function declarations in the file with arrow functions
+2.  replace all vars in the file
+3. replace all string concatination with template strings
+4. use default parameter value for description in deepEquals1
+5. use default value for description in deepEquals1
+6. deepEquals2 does the same as deepEquals1 but it takes an object, use destructuring to access the properties in the object
+7. use a default value for description in deepEquals2
+8. use Set and the spread operator to refactor the uniqueVals function 
